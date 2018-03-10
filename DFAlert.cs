@@ -23,7 +23,7 @@ namespace DFAlert
         #region init
         public override string Author { get { return "Parrot"; } }
         public override string Description { get { return "Alerts user when DF group is ready"; } }
-        public override Version Version { get { return new Version(1, 1, 2, 1); } }
+        public override Version Version { get { return new Version(1, 1, 3); } }
 
         public override string Name
         {

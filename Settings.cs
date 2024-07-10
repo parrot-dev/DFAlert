@@ -32,10 +32,10 @@ namespace DFAlert
             }
             catch (Exception e)
             {
-                Log.print("Error while saving :\n" + e.Message);
+                Log.Print("Error while saving :\n" + e.Message);
                 return false;
             }
-            Log.print("Saved settings.", Colors.White);
+            Log.Print("Saved settings.", Colors.White);
             return true;
         }
 
@@ -50,12 +50,12 @@ namespace DFAlert
             }
             catch (Exception e)
             {
-                Log.print("Failed to load settings :\n" + e.Message);
+                Log.Print("Failed to load settings :\n" + e.Message);
                 Current = new Profile();
                 return false;
             }
 
-            Log.print("Settings loaded", Colors.White);
+            Log.Print("Settings loaded", Colors.White);
             return true;
 
         }
@@ -64,7 +64,7 @@ namespace DFAlert
         {
             if (!File.Exists(PluginRootDir + @"\Settings.xml"))
             {
-                Log.print("Settings.xml is missing, creating a new file.", Colors.White);
+                Log.Print("Settings.xml is missing, creating a new file.", Colors.White);
                 return Save(new Profile());
             }
             return true;

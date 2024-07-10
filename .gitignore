@@ -1,4 +1,9 @@
+Tests/obj
+Tests/bin
 obj/
 bin/
 .vs/
 Settings.xml
+DFAlert.csproj.user
+DFAlert.sln.DotSettings.user
+TestResults

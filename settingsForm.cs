@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace DFAlert
 {
-    public partial class settingsForm : Form
+    public partial class SettingsForm : Form
     {
 
-        public settingsForm()
+        public SettingsForm()
         {
             InitializeComponent();
 
@@ -29,10 +29,7 @@ namespace DFAlert
         {
             Settings.Current.autoCommence.active = checkBox1.Checked;
             Settings.Current.autoCommence.delay = (int)numericUpDown1.Value;
-            if (string.IsNullOrEmpty(txtBoxPBToken.Text))
-                Settings.Current.pBullet.token = "";
-            else
-                Settings.Current.pBullet.token = txtBoxPBToken.Text;
+            Settings.Current.pBullet.token = string.IsNullOrEmpty(txtBoxPBToken.Text) ? "" : txtBoxPBToken.Text;
             Settings.Current.pBullet.active = chkboxPbullet.Checked;
             Settings.Save();
         }

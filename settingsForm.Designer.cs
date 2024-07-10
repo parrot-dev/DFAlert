@@ -1,6 +1,6 @@
 ﻿namespace DFAlert
 {
-    partial class settingsForm
+    partial class SettingsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -35,7 +35,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel2 = new System.Windows.Forms.Panel();
             this.chkboxPbullet = new System.Windows.Forms.CheckBox();
             this.txtBoxPBToken = new System.Windows.Forms.TextBox();
@@ -163,7 +162,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
-            this.Name = "settingsForm";
+            this.Name = "SettingsForm";
             this.Text = "DFAlert";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -183,7 +182,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button2;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.CheckBox chkboxPbullet;
         private System.Windows.Forms.Label label3;

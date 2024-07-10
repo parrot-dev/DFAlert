@@ -1,6 +1,6 @@
 ﻿
 /*
- * DFAlert 1.1.2
+ * DFAlert 1.1.3
  */
 
 using ff14bot.Enums;
@@ -23,55 +23,48 @@ namespace DFAlert
         #region init
         public override string Author { get { return "Parrot"; } }
         public override string Description { get { return "Alerts user when DF group is ready"; } }
-        public override Version Version { get { return new Version(1, 1, 3); } }
+        public override Version Version { get { return new Version(1, 1, 4); } }
 
-        public override string Name
-        {
-            get { return "DFAlert"; }
-        }
-        public override bool WantButton
-        {
-            get { return true; }
-        }
-        public override string ButtonText
-        {
-            get { return "Settings"; }
-        }
+        public override string Name => "DFAlert";
+
+        public override bool WantButton => true;
+
+        public override string ButtonText => "Settings";
+
         public override void OnButtonPress()
         {
-            var sf = new settingsForm();
-            sf.ShowDialog();
+            new SettingsForm().ShowDialog();
 
         }
         public override void OnEnabled()
         {
             if (!Settings.CreateSettingsFile())
             {
-                Log.print("Could not create Settings.xml, make sure the plugin is installed in Plugins/DFAlert/ folder");
+                Log.Print("Could not create Settings.xml, make sure the plugin is installed in Plugins/DFAlert/ folder");
             }
             Settings.Load();            
             _dutyJoiner = new DutyJoiner(); 
         }
         #endregion
 
-        private bool isUp;
+        private bool _isUp;
         private DutyJoiner _dutyJoiner;
 
         public override void OnPulse()
         {
             if (ff14bot.Core.IsInGame)
-                run();
+                Run();
         }
-        private void run()
+        private void Run()
         {
             if (ContentsFinderConfirm.IsOpen)
             {
-                if (!isUp)
+                if (!_isUp)
                 {
-                    isUp = true;
+                    _isUp = true;
                     SndPlayer.Play();
-                    Log.print("Dungeon is ready");
-                    if(Settings.Current.pBullet.active)
+                    Log.Print("Dungeon is ready");
+                    if (Settings.Current.pBullet.active)
                         new PushBullet.Note("DfAlert", "Dungeon is ready").Push();
                     _dutyJoiner.Reset();
                 }
@@ -79,20 +72,14 @@ namespace DFAlert
                     _dutyJoiner.Commence();
             }
             else            
-                isUp = false;            
+                _isUp = false;            
         }
 
         private class DutyJoiner
         {
             private DateTime _joinTime;
-            private bool _isTimeSet;
-            private bool _commenced;
-
-            public DutyJoiner()
-            {
-                _isTimeSet = false;
-                _commenced = false;
-            }
+            private bool _isTimeSet = false;
+            private bool _commenced = false;
 
             public bool Commence()
             {
@@ -102,14 +89,12 @@ namespace DFAlert
                     _isTimeSet = true;
                 }
 
-                if(!_commenced && DateTime.Now > _joinTime && ContentsFinderConfirm.IsOpen)
-                {
-                    ContentsFinderConfirm.Commence();
-                    _commenced = true;
-                    return true;
-                }
+                if (_commenced || DateTime.Now <= _joinTime || !ContentsFinderConfirm.IsOpen) return false;
+                
+                ContentsFinderConfirm.Commence();
+                _commenced = true;
+                return true;
 
-                return false;
             }
             public void Reset()
             {
@@ -125,13 +110,13 @@ namespace DFAlert
             {
                 try
                 {
-                    SoundPlayer sp = new SoundPlayer();
-                    sp.SoundLocation = System.Windows.Forms.Application.StartupPath + @"\Plugins\DFAlert\Sounds\"+FileName;
-                    sp.Play();
+                    var soundPlayer = new SoundPlayer();
+                    soundPlayer.SoundLocation = System.Windows.Forms.Application.StartupPath + @"\Plugins\DFAlert\Sounds\"+FileName;
+                    soundPlayer.Play();
                 }
                 catch (Exception e)
                 {
-                    Log.print("Error: Could not play audio.\n" + e.Message);
+                    Log.Print("Error: Could not play audio.\n" + e.Message);
                 }
             }
         }

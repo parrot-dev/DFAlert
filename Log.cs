@@ -5,19 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using Color = System.Windows.Media.Color;
 
 namespace DFAlert
 {
     static class Log
     {
-        public static void print(string input, Color col)
+        public static void Print(string input, Color color)
         {
-            Logging.Write(col, string.Format("[DFAlert] {0}", input));
+            Logging.Write(color, $"[DFAlert] {input}");
         }
 
-        public static void print(string input)
+        public static void Print(string input)
         {
-            print(input, Colors.Red);
+            Print(input, Colors.Red);
         }
     }
 }
